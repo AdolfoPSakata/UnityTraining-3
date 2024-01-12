@@ -37,7 +37,7 @@ public class Mover : MonoBehaviour
         while (isPressed)
         {
             yield return null;
-            rb.AddForce(gameObject.transform.forward * direction * 15f, ForceMode.Force);
+            rb.AddForce(gameObject.transform.forward * direction * 10f, ForceMode.Acceleration);
         }
     }
 }
