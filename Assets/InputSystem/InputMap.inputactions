@@ -1,0 +1,135 @@
+{
+    "name": "InputMap",
+    "maps": [
+        {
+            "name": "Gameloop",
+            "id": "2f2374a9-f128-4232-818b-18c0536a0547",
+            "actions": [
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "5a7ce72c-423d-4074-9430-c67914e9b8b7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "a1823691-c016-462b-ba30-4a500ba36c90",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.2,pressPoint=0.2)",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Rotate",
+                    "type": "Button",
+                    "id": "0b0f93ec-3afa-4f20-9dd3-1de0aedb47d9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a046a774-ef73-4b69-9e2c-6a5f63cf36ac",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Tank",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0971dc04-3043-4794-bfa9-604e68e53cc8",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Movement",
+                    "id": "bc86811a-1192-4c2a-a6ab-34c9628eef3d",
+                    "path": "1DAxis",
+                    "interactions": "Hold(pressPoint=1.401298E-45)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "5463ea60-0091-4fce-bfe3-ef38968e9b62",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Tank",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "169aefda-e3f5-46c1-abff-59dd025041f0",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Tank",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Angle",
+                    "id": "5588aae5-ae67-4398-a688-185e6482246e",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "2ee486d9-8410-462b-8167-540e56dcc1e8",
+                    "path": "<Keyboard>/#(A)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "b0f2a571-2dfe-4bbe-8a0e-21a90b2d0ccb",
+                    "path": "<Keyboard>/#(D)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Tank",
+            "bindingGroup": "Tank",
+            "devices": []
+        }
+    ]
+}
