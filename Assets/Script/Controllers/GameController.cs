@@ -23,7 +23,6 @@ public class GameController : MonoBehaviour
     {
         state = GameState.Begin;
         gameloop = StartCoroutine(StateMachineCoroutine());
-        SceneManager.LoadScene(2, LoadSceneMode.Additive);
         EventSubscriber onRestartEvent = new EventSubscriber(EventBus.resetGameEvent, RestartGame);
     }
 

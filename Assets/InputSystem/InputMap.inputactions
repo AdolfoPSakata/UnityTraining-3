@@ -123,6 +123,54 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "40a815a0-6357-40b2-b20e-9e6e00abb2a2",
+            "actions": [
+                {
+                    "name": "OpenMenu",
+                    "type": "Button",
+                    "id": "96c585c4-4501-4017-b85f-f2787eb4967c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "bd080411-2ea3-44d4-aeaa-fa630bb07387",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f4aed76c-7fd3-4f03-937c-3661983a59ae",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "160ac41d-2ffd-41b7-bcbc-24024f5c2b62",
+                    "path": "<Mouse>/press",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Tank",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
