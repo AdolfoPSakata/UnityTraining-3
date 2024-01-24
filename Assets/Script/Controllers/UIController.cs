@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,7 +21,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button exitButton;
     [SerializeField] private Button closeMenuButton;
-    
+
 
     [Header("Panels - Menu")]
     [SerializeField] private GameObject menuPanel;
@@ -51,6 +52,7 @@ public class UIController : MonoBehaviour
     private UnityAction openOptions;
 
     private UnityAction closeOptions;
+    private UnityAction returnToMenu;
     private UnityAction resetGame;
     private UnityAction changePostProcessing;
     private UnityAction muteGame;
@@ -60,12 +62,12 @@ public class UIController : MonoBehaviour
     private EventSubscriber enabledPlayerHUd;
     private EventSubscriber onMenuOpen;
     private EventSubscriber onEndGameOpen;
-
+   
     private void Start()
     {
         Init();
     }
-
+    
     private void Init()
     {
         onMenuOpen = new EventSubscriber(EventBus.openMenuEvent, ActivateMenuPanel);
@@ -75,6 +77,7 @@ public class UIController : MonoBehaviour
         closeMenu += delegate { CloseMenu(); };
         openOptions += delegate { ChangeActiveState(optionsPanel, true); };
         closeOptions += delegate { ChangeActiveState(optionsPanel, false); };
+
         returnToMenu += delegate { BackToMenu(); };
         resetGame += delegate { ResetGame(); };
 

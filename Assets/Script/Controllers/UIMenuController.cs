@@ -10,11 +10,12 @@ public class UIMenuController : MonoBehaviour
     [SerializeField] private GameObject eventSystem;
     private EventSubscriber onMenuOpen;
 
+
     private void Start()
     {
         if (!SceneManager.GetSceneByBuildIndex(2).isLoaded)
             SceneManager.LoadScene(2, LoadSceneMode.Additive);
-       
+
         playButton.onClick.AddListener(Play);
         exitButton.onClick.AddListener(delegate { Application.Quit(); });
         optionButton.onClick.AddListener(EnableOptionMenu);
