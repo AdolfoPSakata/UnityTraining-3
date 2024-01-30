@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 824b87ef73b7c6d4f9885465724ec0a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,9 +108,9 @@ GameObject:
   - component: {fileID: 6406472784817853295}
   - component: {fileID: 8132397063732764761}
   - component: {fileID: 410390327034428681}
-  - component: {fileID: 7319565429121918207}
+  - component: {fileID: 4047607332302314533}
   m_Layer: 7
-  m_Name: Projectile_Base
+  m_Name: Projectile_Base 1
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,7 +164,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!82 &7319565429121918207
+--- !u!82 &4047607332302314533
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -313,7 +313,7 @@ TrailRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d9a6c4933a097fc4696e00fa7ed268c3, type: 2}
+  - {fileID: 2100000, guid: 824b87ef73b7c6d4f9885465724ec0a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -364,8 +364,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.5481465, b: 0, a: 1}
-      key1: {r: 0.9245283, g: 0.86567163, b: 0.48319682, a: 1}
+      key0: {r: 0, g: 1, b: 0.033620358, a: 1}
+      key1: {r: 0.5205539, g: 0.9254902, b: 0.48235294, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

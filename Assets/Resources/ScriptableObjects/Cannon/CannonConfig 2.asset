@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d949844efbc31c40aab1723b880b55d, type: 3}
-  m_Name: CannonConfig
+  m_Name: CannonConfig 2
   m_EditorClassIdentifier: 
-  projectil: {fileID: 5734980956499583546, guid: 03a007378c15f70439e73346649f2d4d, type: 3}
+  projectil: {fileID: 5734980956499583546, guid: 04bb0ecb2faf4764cbf2fbc4327c1ace, type: 3}
   mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
   weight: 7
   range: 15
-  fireRate: 1
+  fireRate: 3
