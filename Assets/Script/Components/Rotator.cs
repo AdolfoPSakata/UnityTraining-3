@@ -10,7 +10,6 @@ public class Rotator : MonoBehaviour
     {
         isRotating = state;
     }
-
     public virtual void StartRotation(float interestPoint)
     {
         StartCoroutine(Rotate(interestPoint));
@@ -25,12 +24,6 @@ public class Rotator : MonoBehaviour
             gameObject.transform.Rotate(Vector3.up, direction * maneuverability);
         }
     }
-
-    protected float DirectionToPOI(Transform pointOfInterest)
-    {
-        return Vector3.Angle(gameObject.transform.position, pointOfInterest.position);
-    }
-
     public void SetInitialConfig(float maneuverability)
     {
         this.maneuverability = maneuverability;

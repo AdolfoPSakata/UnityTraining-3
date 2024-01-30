@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    [Header("Configs")]
     [SerializeField] private GameObject playerGeneric;
     [SerializeField] private Transform spawnPoints;
     [SerializeField] private Transform tankParent;
@@ -9,6 +10,10 @@ public class PlayerManager : MonoBehaviour
     public GameObject Player { get; private set; }
     public PlayerBehaviour PlayerBehaviour { get; private set; }
     public bool isPlayerAlive { get; private set; } = false;
+    public void Init()
+    {
+        SpawnPlayer(spawnPoints);
+    }
 
     private void SpawnPlayer(Transform spawnPoint)
     {
@@ -24,23 +29,19 @@ public class PlayerManager : MonoBehaviour
         ChangePlayerStatus();
     }
 
-    public void Init()
-    {
-        SpawnPlayer(spawnPoints);
-    }
-
     public void ChangePlayerStatus()
     {
         isPlayerAlive = !isPlayerAlive;
-        EventBus.enablePlayerHUD.Publish(new EventArgs(isPlayerAlive));
+        EventBus.enablePlayerHUDEvent.Publish(new EventArgs(isPlayerAlive));
     }
 
     public void RestartPlayer()
     {
         ChangePlayerStatus();
+        Player.gameObject.SetActive(true);
         PlayerBehaviour.SetConfigValue();
         Player.gameObject.transform.position = spawnPoints.transform.position;
         Player.gameObject.transform.rotation = spawnPoints.transform.rotation;
-        Player.gameObject.SetActive(true);
+        PlayerBehaviour.SetupInputs();
     }
 }

@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class Damageable : MonoBehaviour
 {
+    [Header("Config")]
     [SerializeField] private float initialHealth;
     [SerializeField] private float health;
     [SerializeField] private Image healthBar;
@@ -21,7 +21,7 @@ public class Damageable : MonoBehaviour
     {
         health -= value;
         if (healthBar != null)
-            UpdateBar(healthBar, health);
+            EventBus.healthChangeEvent.Publish(new EventArgs(UpdateBar(health)));
         CheckDeath(health);
     }
 
@@ -29,7 +29,7 @@ public class Damageable : MonoBehaviour
     {
         health += value;
         if (healthBar != null)
-            UpdateBar(healthBar, health);
+            EventBus.healthChangeEvent.Publish(new EventArgs(UpdateBar(health)));
     }
 
     public void CheckDeath(float health)
@@ -46,15 +46,15 @@ public class Damageable : MonoBehaviour
            gameObject.SetActive(false);
     }
 
-    private void UpdateBar(Image bar, float value)
+    private float UpdateBar(float value)
     {
-        bar.fillAmount = value / initialHealth;
+        return value / initialHealth;
     }
 
     public void SetInitialConfig(float health)
     {
         initialHealth = health;
         this.health = health;
-        UpdateBar(healthBar, health);
+        EventBus.healthChangeEvent.Publish(new EventArgs(UpdateBar(health)));
     }
 }
