@@ -48,11 +48,10 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject eventSystem;
 
     private UnityAction closeMenu;
-    private UnityAction returnToMenu;
     private UnityAction openOptions;
+    private UnityAction returnToMenu;
 
     private UnityAction closeOptions;
-    private UnityAction returnToMenu;
     private UnityAction resetGame;
     private UnityAction changePostProcessing;
     private UnityAction muteGame;

@@ -1,31 +1,27 @@
 using UnityEngine;
-
-public class PickUp : MonoBehaviour
+public abstract class PickUp : MonoBehaviour
 {
-    //renderer
     private Mesh model;
-    [SerializeField] private int lifeSpawn;
-
-    public float Health { get; private set; }
-    public int Bolts { get; private set; }
-    public int Ammo { get; private set; }
-
+    protected Rigidbody rb;
+    [SerializeField] protected int lifeSpawn;
+    [SerializeField] protected float amount;
+   
     private void Awake()
     {
-        Setup();
         Destroy(gameObject, lifeSpawn);
     }
 
-    private void Setup()
+    public void Init(Vector3 direction)
     {
-
+        TryGetComponent<Rigidbody>(out rb);
+        rb.AddForce(direction, ForceMode.VelocityChange);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Player")
-        {
+        if (other.gameObject.tag == "Player")
             Destroy(gameObject);
-        }
     }
+
+    public abstract float GetValue();
 }
