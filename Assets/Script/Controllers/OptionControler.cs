@@ -4,22 +4,20 @@ using UnityEngine.UI;
 
 public class OptionControler : MonoBehaviour
 {
-    //to other place UIcontroller
-    // [SerializeField] private GameObject optionCanvas;
-    //
-    // [SerializeField] private Button leftButton;
-    // [SerializeField] private Button rightButton;
-
-    /////////////
+    [Header("Panels")]
     [SerializeField] private GameObject optionPanel;
+
+    [Header("Buttons")]
     [SerializeField] private Button muteButton;
     [SerializeField] private Button unmuteButton;
     [SerializeField] private Button postButton;
     [SerializeField] private Button closeButton;
 
+    [Header("Sliders")]
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
 
+    [Header("AudioMixer")]
     [SerializeField] private AudioMixer audioMixer;
 
     private float sfxVolume = 0f;
@@ -36,7 +34,6 @@ public class OptionControler : MonoBehaviour
         masterVolume = PlayerPrefs.GetFloat(MASTER_KEY, 1);
         sfxVolume = PlayerPrefs.GetFloat(SFX_KEY, 1);
         musicVolume = PlayerPrefs.GetFloat(MUSIC_KEY, 1);
-        Debug.Log($"{masterVolume} {sfxVolume} {musicVolume}");
 
         audioMixer.SetFloat(MASTER_KEY, 100 * Mathf.Log10(masterVolume));
         SliderControl(sfxSlider, sfxVolume, SFX_KEY);
@@ -56,7 +53,7 @@ public class OptionControler : MonoBehaviour
 
     private void TogglePostProssesing()
     {
-        Debug.Log("Post Processing toggle");
+        Debug.Log("Post Processing toggle not available");
     }
 
     private void MuteGame()
@@ -92,11 +89,6 @@ public class OptionControler : MonoBehaviour
         PlayerPrefs.SetFloat(SFX_KEY, sfxSlider.value);
         PlayerPrefs.SetFloat(MUSIC_KEY, musicSlider.value);
         PlayerPrefs.Save();
-    }
-
-    private void OnEnable()
-    {
-        
     }
 }
 

@@ -3,11 +3,21 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    [Header("Tank Parts")]
+    [SerializeField] private BodyConfig[] bodyConfigs;
+    [SerializeField] private CannonConfig[] cannonConfigs;
+    [SerializeField] private TurretConfig[] turretConfigs;
+    [SerializeField] private WheelConfig[] wheelConfigs;
+
+    [Header("Enemy prefab")]
     [SerializeField] private GameObject enemyGeneric;
+
+    [Header("Configs")]
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private Transform poolOrigin;
     [SerializeField] private Transform enemiesParent;
     [SerializeField] private TankConfig tankConfig;
+
     const int MAX_ENEMY = 20;
 
     List<GameObject> activeEnemies = new List<GameObject>();
@@ -43,16 +53,26 @@ public class EnemyManager : MonoBehaviour
         enemy.transform.position = poolOrigin.position;
     }
 
+    public TankConfig RandomizeEnemy(TankConfig tankConfig)
+    {
+        tankConfig.body = bodyConfigs[Random.Range(0, bodyConfigs.Length)];
+        tankConfig.cannon = cannonConfigs[Random.Range(0, cannonConfigs.Length)];
+        tankConfig.turret = turretConfigs[Random.Range(0, turretConfigs.Length)];
+        tankConfig.wheel = wheelConfigs[Random.Range(0, wheelConfigs.Length)];
+        return tankConfig;
+    }
+
     public void StartWave()
     {
         foreach (var point in spawnPoints)
         {
             GameObject enemy = enemyQueue.Dequeue();
+            EnemyBehaviour enemyBehaviours = enemy.GetComponent<EnemyBehaviour>();
             enemy.transform.position = point.position;
+            enemyBehaviours.ConfigureEnemy(RandomizeEnemy(tankConfig));
             enemy.SetActive(true);
-            enemy.GetComponent<EnemyBehaviour>().ConfigureEnemy(tankConfig);
-            enemy.GetComponent<EnemyBehaviour>().Init();
-            enemy.GetComponent<EnemyBehaviour>().onDeath = RemoveFromList;
+            enemyBehaviours.Init();
+            enemyBehaviours.onDeath = RemoveFromList;
             activeEnemies.Add(enemy);
         }
     }

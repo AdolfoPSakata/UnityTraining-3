@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Wallet : MonoBehaviour
 {
-    private int bolts;
-
-    public void AddBolts(int recievedBolts)
+    private float bolts;
+    private void Awake()
+    {
+        EventBus.boltChangeEvent.Publish(new EventArgs(bolts));
+    }
+    public void AddBolts(float recievedBolts)
     {
         bolts += recievedBolts;
+        EventBus.boltChangeEvent.Publish(new EventArgs(bolts));
     }
 }

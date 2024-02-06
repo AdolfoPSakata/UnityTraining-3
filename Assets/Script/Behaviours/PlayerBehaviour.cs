@@ -1,35 +1,28 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using Cinemachine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    [SerializeField] private CinemachineVirtualCamera camera;
-    [SerializeField] private GameObject tower;
-    [SerializeField] private GameObject projectile;
-    [SerializeField] private GameObject nozzle;
-    [SerializeField] private GameObject target;
+    [Header("Config")]
+    [SerializeField] private Tank playerTank;
 
+    [Header("Objects")]
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private GameObject turret;
+    [SerializeField] private GameObject nozzle;
+
+    [Header("Components")]
     [SerializeField] private Damageable damageable;
     [SerializeField] private Mover mover;
     [SerializeField] private Rotator rotator;
     [SerializeField] private Shoter shoter;
     [SerializeField] private Wallet wallet;
-   
-    Coroutine shooting;
 
-    [SerializeField] private float health;
-    [SerializeField] private float weight;
-    [SerializeField] private float responseTime;
-    [SerializeField] private float range;
-    [SerializeField] private float spotRange;
-    [SerializeField] private float fireRate;
-    [SerializeField] private float speed;
-    [SerializeField] private float maneuverability;
-    [SerializeField] private int bolts;
-    [SerializeField] private int ammo;
+    [Header("Drops")]
+    [SerializeField] private GameObject sfxDeath;
 
     public Action onDeath;
     public Action onShot;
@@ -37,6 +30,10 @@ public class PlayerBehaviour : MonoBehaviour
     public UnityAction<float> onMove;
     public UnityAction<bool> onPressButtonMover;
     public UnityAction<bool> onPressButtonRotator;
+
+    private Coroutine shooting;
+    private GameObject target;
+    private GameObject projectile;
 
     public void SetupInputs()
     {
@@ -47,23 +44,18 @@ public class PlayerBehaviour : MonoBehaviour
         onMove += mover.StartMoving;
         onShot += Shot;
     }
-    //move it
+
     public void ConfigurePlayer(TankConfig tankConfig)
     {
-        health = tankConfig.wheel.health + tankConfig.body.health + tankConfig.turret.health;
-        weight = tankConfig.wheel.weight + tankConfig.body.weight + tankConfig.cannon.weight + tankConfig.turret.weight;
-        fireRate = tankConfig.cannon.fireRate;
-        speed = tankConfig.wheel.speed;
-        maneuverability = tankConfig.body.maneuverability;
-        spotRange = tankConfig.turret.spotRange;
-
+        playerTank.Init(tankConfig);
         SetConfigValue();
     }
 
     private IEnumerator ShotRoutine()
     {
         shoter.Shot();
-        yield return new WaitForSeconds(fireRate);
+        EventBus.startCooldownEvent.Publish(new EventArgs(playerTank.fireRate));
+        yield return new WaitForSeconds(playerTank.fireRate);
         shooting = null;
     }
 
@@ -76,32 +68,47 @@ public class PlayerBehaviour : MonoBehaviour
     private void Die()
     {
         StopAllCoroutines();
+        DropSFX();
         mover.FullStop();
         onDeath.Invoke();
         gameObject.SetActive(false);
     }
 
-    private void PickUpItem()
+    private void DropSFX()
     {
-        shoter.AddAmmo(1);
-        damageable.Heal(1);
-        wallet.AddBolts(1);
+        GameObject dropSFX = Instantiate(sfxDeath);
+        dropSFX.transform.position = gameObject.transform.position;
+        dropSFX.transform.parent = null;
+        Destroy(dropSFX, 2);
     }
-
     public void SetConfigValue()
     {
-        damageable.SetInitialConfig(health);
-        mover.SetInitialConfig(weight, speed);
-        rotator.SetInitialConfig(maneuverability);
-        camera.m_Lens.OrthographicSize = spotRange;
+        damageable.SetInitialConfig(playerTank.health);
+        mover.SetInitialConfig(playerTank.weight, playerTank.speed);
+        rotator.SetInitialConfig(playerTank.maneuverability);
+        shoter.SetInitialConfig(playerTank.projectile);
+        virtualCamera.m_Lens.OrthographicSize = playerTank.spotRange;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        PickUpItem();
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
+        if (other.TryGetComponent(out PickUp pickUp))
+        {
+            Debug.Log(other.gameObject.name);
+            switch (pickUp)
+            {
+                case Bolt:
+                    wallet.AddBolts(pickUp.GetValue());
+                    break;
+                case Ammo:
+                    shoter.AddAmmo((int)pickUp.GetValue());
+                    break;
+                case MedKit:
+                    damageable.Heal(pickUp.GetValue());
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

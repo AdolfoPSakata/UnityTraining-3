@@ -4,26 +4,30 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     private Rigidbody rb;
+
+    [Header("Config")]
     [SerializeField] private float velocity;
     [SerializeField] private float damage;
     [SerializeField] private GameObject explosion;
 
+    const float LIFESPAWN = 5f;
     private void Start()
     {
         Setup();
         StartMoving();
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, LIFESPAWN);
     }
+
     private void Setup()
     {
         rb = gameObject.GetComponent<Rigidbody>();
     }
-    public void StartMoving()
+    private void StartMoving()
     {
         rb.velocity = gameObject.transform.forward * velocity;
     }
 
-    public void Explode()
+    private void Explode()
     {
         GameObject vfx = Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
         vfx.transform.parent = null;
@@ -33,7 +37,6 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log($"Damage Taken: {damage}, {collision.gameObject.name}");
         if (collision.gameObject.GetComponentInParent<Damageable>() != null)
         {
             collision.gameObject.GetComponentInParent<Damageable>().TakeDamage(damage);

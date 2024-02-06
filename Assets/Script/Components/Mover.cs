@@ -6,10 +6,11 @@ using UnityEngine.Events;
 public class Mover : MonoBehaviour
 {
     private Rigidbody rb;
-    [SerializeField] private float speed;
+    private float speed;
+    private bool isPressed;
+
     public UnityAction<float> onMove;
     public UnityAction<bool> onPressButton;
-    private bool isPressed;
 
     private void Awake()
     {
@@ -31,7 +32,6 @@ public class Mover : MonoBehaviour
     {
         StartCoroutine(Move(direction));
     }
-
     private IEnumerator Move(float direction)
     {
         ChangePressedStatus(true);
