@@ -4,12 +4,11 @@ using UnityEngine.UI;
 
 public class UIMenuController : MonoBehaviour
 {
+    [Header("Buttons")]
     [SerializeField] private Button playButton;
     [SerializeField] private Button exitButton;
     [SerializeField] private Button optionButton;
-    [SerializeField] private GameObject eventSystem;
-    private EventSubscriber onMenuOpen;
-
+    [SerializeField] private Button garageButton;
 
     private void Start()
     {
@@ -19,22 +18,20 @@ public class UIMenuController : MonoBehaviour
         playButton.onClick.AddListener(Play);
         exitButton.onClick.AddListener(delegate { Application.Quit(); });
         optionButton.onClick.AddListener(EnableOptionMenu);
-
-        onMenuOpen = new EventSubscriber(EventBus.openMenuEvent, EnableEventSystem);
+        garageButton.onClick.AddListener(EnableGarageMenu);
     }
 
     private void EnableOptionMenu()
     {
-        EventBus.openMenuEvent.Publish(new EventArgs(eventSystem.activeSelf));
+        EventBus.openMenuEvent.Publish(new EventArgs(true));
     }
-
-    private void EnableEventSystem(EventArgs args)
+    private void EnableGarageMenu()
     {
-        eventSystem.SetActive(!args.State);
+        EventBus.openGarageEvent.Publish(new EventArgs(true));
     }
-
     private void Play()
     {
+        EventBus.enablePlayerHUDEvent.Publish(new EventArgs(true));
         SceneManager.UnloadSceneAsync(0);
         SceneManager.LoadScene(1, LoadSceneMode.Additive);
     }
