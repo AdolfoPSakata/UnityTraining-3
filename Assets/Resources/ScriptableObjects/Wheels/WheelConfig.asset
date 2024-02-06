@@ -15,4 +15,4 @@ MonoBehaviour:
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   health: 4
   weight: 5
-  speed: 6
+  speed: 15

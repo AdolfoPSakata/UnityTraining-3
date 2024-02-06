@@ -15,5 +15,5 @@ MonoBehaviour:
   mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   health: 1
   weight: 2
-  responseTime: 3
+  responseTime: 1
   spotRange: 20
